@@ -37,6 +37,39 @@ const ShowtimeController = {
 
   /**
    * @swagger
+   * /showtimes/future:
+   *   get:
+   *     summary: Get future showtimes only
+   *     description: Retrieve a list of showtimes that haven't started yet (for booking)
+   *     tags: [Showtimes]
+   *     responses:
+   *       200:
+   *         description: Successfully retrieved future showtimes
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ShowtimeListResponse'
+   *       500:
+   *         $ref: '#/components/responses/ServerError'
+   */
+  getFutureShowtimes: async (_, res) => {
+    try {
+      const showtimes = await ShowtimeRepository.getFutureShowtimes();
+      return res.status(200).json({
+        success: true,
+        data: showtimes,
+      });
+    } catch (error) {
+      logger.error("Showtime error:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  },
+
+  /**
+   * @swagger
    * /showtimes/{id}:
    *   get:
    *     summary: Get showtime by ID

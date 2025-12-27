@@ -3,6 +3,7 @@ const router = express.Router();
 const ShowtimeController = require("../../controllers/showtime.controller");
 
 router.get("/", ShowtimeController.getAllShowtimes);
+router.get("/future", ShowtimeController.getFutureShowtimes);
 router.get("/:id", ShowtimeController.getShowtimeById);
 router.post("/", ShowtimeController.createShowtime);
 router.post("/check-overlap", ShowtimeController.checkOverlap);

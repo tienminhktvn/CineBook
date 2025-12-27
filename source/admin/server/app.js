@@ -40,6 +40,7 @@ staffRouter.use("/movies", require("./routes/v1/movie.routes"));
 staffRouter.use("/halls", require("./routes/v1/hall.routes"));
 staffRouter.use("/showtimes", require("./routes/v1/showtime.routes"));
 staffRouter.use("/bookings", require("./routes/v1/booking.routes"));
+staffRouter.use("/snacks", require("./routes/v1/snack.routes"));
 
 app.use("/api/v1", staffRouter);
 

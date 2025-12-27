@@ -5,3 +5,4 @@ export { hallService } from "./hall.service";
 export { showtimeService } from "./showtime.service";
 export { bookingService } from "./booking.service";
 export { userService } from "./user.service";
+export { snackService } from "./snack.service";

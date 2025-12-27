@@ -5,3 +5,4 @@ export { HallsPage } from "./HallsPage";
 export { ShowtimesPage } from "./ShowtimesPage";
 export { BookingsPage } from "./BookingsPage";
 export { UsersPage } from "./UsersPage";
+export { SnacksPage } from "./SnacksPage";

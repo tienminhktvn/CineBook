@@ -14,6 +14,7 @@ import {
 import { showtimeService, movieService, hallService } from "../services";
 import type { Showtime, ShowtimeInput } from "../types";
 import toast from "react-hot-toast";
+import { formatCurrency, formatDateTime } from "../helper";
 
 export const ShowtimesPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -84,20 +85,6 @@ export const ShowtimesPage: React.FC = () => {
 
   const getHallName = (hallId: number) => {
     return halls.find((h) => h.id === hallId)?.name || `Hall #${hallId}`;
-  };
-
-  const formatDateTime = (dateString: string) => {
-    return new Date(dateString).toLocaleString("en-US", {
-      dateStyle: "short",
-      timeStyle: "short",
-    });
-  };
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(amount);
   };
 
   const openCreateModal = () => {

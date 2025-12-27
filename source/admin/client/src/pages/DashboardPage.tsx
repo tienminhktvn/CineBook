@@ -22,6 +22,7 @@ import {
   bookingService,
 } from "../services";
 import type { Booking } from "../types";
+import { formatCurrency } from "../helper";
 
 export const DashboardPage: React.FC = () => {
   const { data: moviesData } = useQuery({
@@ -56,13 +57,6 @@ export const DashboardPage: React.FC = () => {
   const totalRevenue = revenueData?.data?.total_revenue || 0;
 
   const recentBookings = bookings.slice(0, 5);
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(amount);
-  };
 
   const bookingColumns = [
     {

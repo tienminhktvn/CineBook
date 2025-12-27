@@ -7,6 +7,13 @@ export const showtimeService = {
     return response.data;
   },
 
+  getFuture: async (): Promise<ApiResponse<Showtime[]>> => {
+    const response = await api.get<ApiResponse<Showtime[]>>(
+      "/showtimes/future"
+    );
+    return response.data;
+  },
+
   getById: async (id: number): Promise<ApiResponse<Showtime>> => {
     const response = await api.get<ApiResponse<Showtime>>(`/showtimes/${id}`);
     return response.data;
