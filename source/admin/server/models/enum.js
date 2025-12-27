@@ -16,4 +16,16 @@ const BookingStatus = {
   COMPLETED: "completed",
 };
 
-module.exports = { SeatType, HallStatus, BookingStatus };
+const Role = {
+  CUSTOMER: "customer",
+  ADMIN: "admin",
+  STAFF: "staff",
+};
+
+const UserStatus = {
+  ACTIVE: "active",
+  BLOCKED: "blocked",
+  PENDING: "pending",
+};
+
+module.exports = { SeatType, HallStatus, BookingStatus, Role, UserStatus };

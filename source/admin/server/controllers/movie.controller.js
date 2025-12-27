@@ -6,7 +6,7 @@ const MovieController = {
    * /movies:
    *   get:
    *     summary: Get all movies
-   *     description: Retrieve a list of all movies in the database
+   *     description: Retrieve a list of all movies
    *     tags: [Movies]
    *     responses:
    *       200:

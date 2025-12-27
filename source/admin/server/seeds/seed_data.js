@@ -34,7 +34,8 @@ exports.seed = async function (knex) {
 
   // USERS
   // Example hash for "password123"
-  const DUMMY_HASH = "$2b$10$MetricPlaceholderHashForTestingOnly";
+  const DUMMY_HASH =
+    "$2b$10$ywSU0qfbTIVj6sg08yjZh.jMv4jLGd84iLT0LF8GYQTIK0/Q616pm";
 
   const usersData = await knex("users")
     .insert([

@@ -30,6 +30,14 @@ const {
   BookingInput,
   BookingUpdateInput,
   RevenueResponse,
+  // Auth
+  LoginInput,
+  RegisterInput,
+  User,
+  LoginResponse,
+  RegisterResponse,
+  LogoutResponse,
+  Role: RoleSchema,
 } = require("../dtos");
 
 const PORT = process.env.PORT || 3000;
@@ -41,14 +49,14 @@ const options = {
       title: "CineBook Admin API",
       version: "1.0.0",
       description:
-        "API documentation for the CineBook Movie Booking Admin System",
+        "API documentation for the CineBook Movie Booking Admin System. All endpoints require admin authentication.",
       contact: {
         name: "CineBook Team",
       },
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
+        url: `http://localhost:${PORT}/api/v1`,
         description: "Local development server",
       },
     ],
@@ -69,8 +77,28 @@ const options = {
         name: "Bookings",
         description: "Booking management endpoints",
       },
+      {
+        name: "Auth",
+        description: "Authentication endpoints (login, register, logout)",
+      },
+    ],
+    // ==================== Security ====================
+    security: [
+      {
+        BearerAuth: [],
+      },
     ],
     components: {
+      // ==================== Security Schemes ====================
+      securitySchemes: {
+        BearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          description: "Enter your JWT token. Admin role required.",
+        },
+      },
+
       schemas: {
         // ==================== Common Schemas ====================
         ApiResponse,
@@ -110,6 +138,15 @@ const options = {
         RevenueResponse,
         BookingResponse: createItemResponse("#/components/schemas/Booking"),
         BookingListResponse: createListResponse("#/components/schemas/Booking"),
+
+        // ==================== Auth Schemas ====================
+        User,
+        Role: RoleSchema,
+        LoginInput,
+        LoginResponse,
+        RegisterInput,
+        RegisterResponse,
+        LogoutResponse,
       },
 
       // ==================== Parameters ====================
@@ -159,6 +196,34 @@ const options = {
 
       // ==================== Response Templates ====================
       responses: {
+        Unauthorized: {
+          description: "Unauthorized - Access token is missing or invalid",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ErrorResponse",
+              },
+              example: {
+                success: false,
+                message: "Access token is required",
+              },
+            },
+          },
+        },
+        Forbidden: {
+          description: "Forbidden - Admin access required",
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/ErrorResponse",
+              },
+              example: {
+                success: false,
+                message: "Admin access required",
+              },
+            },
+          },
+        },
         NotFound: {
           description: "Resource not found",
           content: {

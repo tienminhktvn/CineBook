@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
+const { authenticateToken, isAdmin } = require("./middleware");
 require("dotenv").config();
 
 const app = express();
@@ -10,13 +11,27 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Swagger UI - Available at /docs
+// Swagger UI
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Routes
-app.use("/movies", require("./routes/v1/movie.routes"));
-app.use("/halls", require("./routes/v1/hall.routes"));
-app.use("/showtimes", require("./routes/v1/showtime.routes"));
-app.use("/bookings", require("./routes/v1/booking.routes"));
+// Health check endpoint
+app.get("/health", (_, res) => {
+  res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
+});
+
+// Auth routes
+app.use("/api/v1/auth", require("./routes/v1/auth.routes"));
+
+// Protected Admin Routes
+const adminRouter = express.Router();
+adminRouter.use(authenticateToken);
+adminRouter.use(isAdmin);
+
+adminRouter.use("/movies", require("./routes/v1/movie.routes"));
+adminRouter.use("/halls", require("./routes/v1/hall.routes"));
+adminRouter.use("/showtimes", require("./routes/v1/showtime.routes"));
+adminRouter.use("/bookings", require("./routes/v1/booking.routes"));
+
+app.use("/api/v1", adminRouter);
 
 module.exports = app;
