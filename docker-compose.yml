@@ -1,0 +1,52 @@
+services:
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: cinema_postgres
+    environment:
+      POSTGRES_USER: cinema_admin
+      POSTGRES_PASSWORD: securepassword123
+      POSTGRES_DB: cinema_booking
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_db/init:/docker-entrypoint-initdb.d
+    networks:
+      - cinema_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cinema_admin -d cinema_booking"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: cinema_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@cinebook.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    ports:
+      - "8080:80"
+    volumes:
+      - ./pgadmin/servers.json:/pgadmin4/servers.json
+      - ./pgadmin/pgpass:/tmp/pgpass_temp
+    networks:
+      - cinema_network
+    depends_on:
+      - postgres_db
+    entrypoint: >
+      /bin/sh -c "
+        mkdir -p -m 700 /var/lib/pgadmin/storage/admin_cinebook.com;
+        cp /tmp/pgpass_temp /var/lib/pgadmin/storage/admin_cinebook.com/pgpass;
+        sed -i 's/\r$//' /var/lib/pgadmin/storage/admin_cinebook.com/pgpass;
+        chmod 600 /var/lib/pgadmin/storage/admin_cinebook.com/pgpass;
+        chown -R 5050:5050 /var/lib/pgadmin/storage/admin_cinebook.com;
+        /entrypoint.sh
+      "
+
+volumes:
+  postgres_data:
+
+networks:
+  cinema_network:
+    driver: bridge
