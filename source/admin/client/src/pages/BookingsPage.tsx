@@ -21,6 +21,7 @@ import type {
   BookingWithSnacks,
 } from "../services/booking.service";
 import toast from "react-hot-toast";
+import { formatCurrency } from "../helper";
 
 interface SelectedSnack {
   snack_id: number;
@@ -240,14 +241,6 @@ export const BookingsPage: React.FC = () => {
     if (confirm("Are you sure you want to delete this booking?")) {
       deleteMutation.mutate(booking.id);
     }
-  };
-
-  // Format helpers
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(amount);
   };
 
   const formatShowtimeLabel = (showtime: Showtime) => {

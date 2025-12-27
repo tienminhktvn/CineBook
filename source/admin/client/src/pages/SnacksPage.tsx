@@ -13,6 +13,7 @@ import {
 import { snackService } from "../services";
 import type { Snack, SnackInput } from "../services/snack.service";
 import toast from "react-hot-toast";
+import { formatCurrency } from "../helper";
 
 interface SnackFormData {
   name: string;
@@ -125,14 +126,6 @@ export const SnacksPage: React.FC = () => {
     if (confirm(`Are you sure you want to delete "${snack.name}"?`)) {
       deleteMutation.mutate(snack.id);
     }
-  };
-
-  // Format helpers
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(amount);
   };
 
   // Table columns
