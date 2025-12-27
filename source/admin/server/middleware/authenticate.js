@@ -1,8 +1,14 @@
 const jwt = require("jsonwebtoken");
 
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1]; // Get the token from "Bearer TOKEN"
+  // Check for token in cookie first, then fall back to Authorization header
+  let token = req.cookies?.access_token;
+
+  // Fallback to Authorization header for backwards compatibility
+  if (!token) {
+    const authHeader = req.headers["authorization"];
+    token = authHeader && authHeader.split(" ")[1]; // Get the token from "Bearer TOKEN"
+  }
 
   if (!token) {
     return res.status(401).json({

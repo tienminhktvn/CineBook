@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const UserRepository = require("../repositories/user.repository");
 const RoleRepository = require("../repositories/role.repository");
 const { Role, UserStatus } = require("../models/enum");
+const { logger } = require("../config/logger");
 
 const SALT_ROUNDS = 10;
 const TOKEN_EXPIRY = "24h"; // 24 hours
@@ -63,6 +64,7 @@ const AuthController = {
       const user = await UserRepository.findByUsernameWithRole(username);
 
       if (!user) {
+        logger.warn(`Login failed: User not found - ${username}`);
         return res.status(401).json({
           success: false,
           message: "Invalid username or password",
@@ -76,6 +78,7 @@ const AuthController = {
       );
 
       if (!isValidPassword) {
+        logger.warn(`Login failed: Invalid password - ${username}`);
         return res.status(401).json({
           success: false,
           message: "Invalid username or password",
@@ -84,6 +87,9 @@ const AuthController = {
 
       // Check if user is admin or staff
       if (user.role !== Role.ADMIN && user.role !== Role.STAFF) {
+        logger.warn(
+          `Login failed: Access denied for role ${user.role} - ${username}`
+        );
         return res.status(403).json({
           success: false,
           message: "Admin or Staff access required",
@@ -92,6 +98,7 @@ const AuthController = {
 
       // Check if account is active
       if (user.status !== UserStatus.ACTIVE) {
+        logger.warn(`Login failed: Account ${user.status} - ${username}`);
         return res.status(403).json({
           success: false,
           message: `Account is ${user.status}. Please contact support.`,
@@ -115,17 +122,27 @@ const AuthController = {
       // Remove password_hash from response
       const { password_hash, ...userWithoutPassword } = user;
 
+      logger.info(`User logged in: ${user.username} (${user.role})`);
+
+      // Set httpOnly cookie with the token
+      res.cookie("access_token", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: TOKEN_EXPIRY_SECONDS * 1000, // Convert to milliseconds
+      });
+
       return res.status(200).json({
         success: true,
         data: {
           user: userWithoutPassword,
-          access_token: accessToken,
+          access_token: accessToken, // Still send for backwards compatibility
           token_type: "Bearer",
           expires_in: TOKEN_EXPIRY_SECONDS,
         },
       });
     } catch (error) {
-      console.error("Login error:", error);
+      logger.error("Login error:", error);
       return res.status(500).json({
         success: false,
         message: "Login failed",
@@ -232,7 +249,7 @@ const AuthController = {
         },
       });
     } catch (error) {
-      console.error("Registration error:", error);
+      logger.error("Registration error:", error);
       return res.status(500).json({
         success: false,
         message: "Registration failed",
@@ -259,16 +276,19 @@ const AuthController = {
    */
   logout: async (req, res) => {
     try {
-      // Since JWT is stateless, we just return success
-      // The client should discard the token
-      // For enhanced security, you could implement a token blacklist
+      // Clear the httpOnly cookie
+      res.clearCookie("access_token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      });
 
       return res.status(200).json({
         success: true,
         message: "Logged out successfully",
       });
     } catch (error) {
-      console.error("Logout error:", error);
+      logger.error("Logout error:", error);
       return res.status(500).json({
         success: false,
         message: "Logout failed",
@@ -319,7 +339,7 @@ const AuthController = {
         data: user,
       });
     } catch (error) {
-      console.error("Get user error:", error);
+      logger.error("Get user error:", error);
       return res.status(500).json({
         success: false,
         message: "Could not get user information",

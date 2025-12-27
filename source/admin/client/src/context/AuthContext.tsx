@@ -24,20 +24,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Check for existing session on mount
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem("access_token");
       const storedUser = localStorage.getItem("user");
 
-      if (token && storedUser) {
+      if (storedUser) {
         try {
-          // Verify token is still valid
+          // Verify cookie session is still valid
           const response = await authService.getMe();
           setUser(response.data);
+          // Update stored user in case it changed
+          localStorage.setItem("user", JSON.stringify(response.data));
         } catch {
-          // Token invalid, clear storage
-          localStorage.removeItem("access_token");
+          // Cookie expired or invalid, clear user data
           localStorage.removeItem("user");
           setUser(null);
         }
@@ -50,10 +49,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = useCallback(async (data: LoginRequest) => {
     const response = await authService.login(data);
-    const { user, access_token } = response.data;
+    const { user } = response.data;
 
-    // Store in localStorage
-    localStorage.setItem("access_token", access_token);
     localStorage.setItem("user", JSON.stringify(user));
 
     setUser(user);
@@ -61,11 +58,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const logout = useCallback(async () => {
     try {
+      // This will clear the httpOnly cookie on backend
       await authService.logout();
     } catch {
       // Ignore errors, clear local state anyway
     }
-    localStorage.removeItem("access_token");
     localStorage.removeItem("user");
     setUser(null);
   }, []);

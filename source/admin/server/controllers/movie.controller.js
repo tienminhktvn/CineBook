@@ -1,4 +1,5 @@
 const MovieRepository = require("../repositories/movie.repository");
+const { logger } = require("../config/logger");
 
 const MovieController = {
   /**
@@ -26,7 +27,7 @@ const MovieController = {
         data: movies,
       });
     } catch (error) {
-      console.log(error);
+      logger.error("Movie error:", error);
       return res.status(500).json({
         success: false,
         message: "Server Error",
@@ -80,7 +81,7 @@ const MovieController = {
         data: movie,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Movie error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not get movie by id" });
@@ -143,7 +144,7 @@ const MovieController = {
         data: newMovie,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Movie error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not create movie" });
@@ -204,7 +205,7 @@ const MovieController = {
         data: updatedMovie,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Movie error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not update movie" });
@@ -259,7 +260,7 @@ const MovieController = {
         });
       }
     } catch (error) {
-      console.error(error);
+      logger.error("Movie error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not delete movie" });

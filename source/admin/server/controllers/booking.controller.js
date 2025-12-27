@@ -1,4 +1,5 @@
 const BookingRepository = require("../repositories/booking.repository");
+const { logger } = require("../config/logger");
 
 const BookingController = {
   /**
@@ -26,7 +27,7 @@ const BookingController = {
         data: bookings,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Booking error:", error);
       return res.status(500).json({
         success: false,
         message: "Server Error",
@@ -80,7 +81,7 @@ const BookingController = {
         data: booking,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Booking error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not get booking by id" });
@@ -138,7 +139,7 @@ const BookingController = {
         data: newBooking,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Booking error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not create booking" });
@@ -196,7 +197,7 @@ const BookingController = {
         data: updatedBooking,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Booking error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not update booking" });
@@ -247,7 +248,7 @@ const BookingController = {
         });
       }
     } catch (error) {
-      console.error(error);
+      logger.error("Booking error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not delete booking" });
@@ -281,7 +282,7 @@ const BookingController = {
         },
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Booking error:", error);
       return res.status(500).json({
         success: false,
         message: "Could not get total revenue",

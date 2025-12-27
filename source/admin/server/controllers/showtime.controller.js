@@ -1,4 +1,5 @@
 const ShowtimeRepository = require("../repositories/showtime.repository");
+const { logger } = require("../config/logger");
 
 const ShowtimeController = {
   /**
@@ -26,7 +27,7 @@ const ShowtimeController = {
         data: showtimes,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Showtime error:", error);
       return res.status(500).json({
         success: false,
         message: "Server Error",
@@ -80,7 +81,7 @@ const ShowtimeController = {
         data: showtime,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Showtime error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not get showtime by id" });
@@ -158,7 +159,7 @@ const ShowtimeController = {
         data: newShowtime,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Showtime error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not create showtime" });
@@ -222,7 +223,7 @@ const ShowtimeController = {
         data: updatedShowtime,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Showtime error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not update showtime" });
@@ -273,7 +274,7 @@ const ShowtimeController = {
         });
       }
     } catch (error) {
-      console.error(error);
+      logger.error("Showtime error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not delete showtime" });
@@ -330,7 +331,7 @@ const ShowtimeController = {
         },
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Showtime error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not check overlap" });

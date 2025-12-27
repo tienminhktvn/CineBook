@@ -1,4 +1,5 @@
 const HallRepository = require("../repositories/hall.repository");
+const { logger } = require("../config/logger");
 
 const HallController = {
   /**
@@ -26,7 +27,7 @@ const HallController = {
         data: halls,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Hall error:", error);
       return res.status(500).json({
         success: false,
         message: "Server Error",
@@ -80,7 +81,7 @@ const HallController = {
         data: hall,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Hall error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not get hall by id" });
@@ -133,7 +134,7 @@ const HallController = {
         data: newHall,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Hall error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not create hall" });
@@ -193,7 +194,7 @@ const HallController = {
         data: newHall,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Hall error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not create hall with seats" });
@@ -251,7 +252,7 @@ const HallController = {
         data: updatedHall,
       });
     } catch (error) {
-      console.error(error);
+      logger.error("Hall error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not update hall" });
@@ -302,7 +303,7 @@ const HallController = {
         });
       }
     } catch (error) {
-      console.error(error);
+      logger.error("Hall error:", error);
       return res
         .status(500)
         .json({ success: false, message: "Could not delete hall" });

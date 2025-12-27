@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const UserRepository = require("../repositories/user.repository");
 const RoleRepository = require("../repositories/role.repository");
 const { Role, UserStatus } = require("../models/enum");
+const { logger } = require("../config/logger");
 
 const SALT_ROUNDS = 10;
 
@@ -35,7 +36,7 @@ const UserController = {
         data: users,
       });
     } catch (error) {
-      console.error("Get all users error:", error);
+      logger.error("Get all users error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to retrieve users",
@@ -81,7 +82,7 @@ const UserController = {
         data: user,
       });
     } catch (error) {
-      console.error("Get user by ID error:", error);
+      logger.error("Get user by ID error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to retrieve user",
@@ -180,7 +181,7 @@ const UserController = {
         data: userWithRole,
       });
     } catch (error) {
-      console.error("Create user error:", error);
+      logger.error("Create user error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to create user",
@@ -266,7 +267,7 @@ const UserController = {
         data: updatedUser,
       });
     } catch (error) {
-      console.error("Update user error:", error);
+      logger.error("Update user error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to update user",
@@ -318,7 +319,7 @@ const UserController = {
         message: "User deleted successfully",
       });
     } catch (error) {
-      console.error("Delete user error:", error);
+      logger.error("Delete user error:", error);
       return res.status(500).json({
         success: false,
         message: "Failed to delete user",
