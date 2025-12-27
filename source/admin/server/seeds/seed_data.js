@@ -78,7 +78,7 @@ exports.seed = async function (knex) {
         title: "Inception",
         genre: "Sci-Fi",
         description:
-          "A thief who steals corporate secrets through the use of dream-sharing technology...",
+          "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO, but his tragic past may doom the project and his team to disaster.",
         duration_minutes: 148,
         release_date: "2010-07-16",
         poster_url:
@@ -88,11 +88,31 @@ exports.seed = async function (knex) {
         title: "The Dark Knight",
         genre: "Action",
         description:
-          "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham...",
+          "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.",
         duration_minutes: 152,
         release_date: "2008-07-18",
         poster_url:
           "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_QL75_UX190_CR0,0,190,281_.jpg",
+      },
+      {
+        title: "The Shawshank Redemption",
+        genre: "Drama",
+        description:
+          "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
+        duration_minutes: 152,
+        release_date: "2008-07-18",
+        poster_url:
+          "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg",
+      },
+      {
+        title: "Avatar: Fire and Ash",
+        genre: "Drama",
+        description:
+          "Jake and Neytiri's family grapples with grief, encountering a new, aggressive Na'vi tribe, the Ash People, who are led by the fiery Varang, as the conflict on Pandora escalates and a new moral focus emerges.",
+        duration_minutes: 197,
+        release_date: "2025-12-19",
+        poster_url:
+          "https://m.media-amazon.com/images/M/MV5BYmUxOTlhYzctMDlmOS00Y2Y3LWJiMDEtNjdkN2I2NjdlNWYwXkEyXkFqcGc@._V1_QL75_UX190_CR0,2,190,281_.jpg",
       },
     ])
     .returning("*");
