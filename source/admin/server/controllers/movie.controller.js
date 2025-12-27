@@ -1,4 +1,4 @@
-const MovieModel = require("../models/movie.model");
+const MovieRepository = require("../repositories/movie.repository");
 
 const MovieController = {
   /**
@@ -20,7 +20,7 @@ const MovieController = {
    */
   getAllMovies: async (_, res) => {
     try {
-      const movies = await MovieModel.findAll();
+      const movies = await MovieRepository.findAll();
       return res.status(200).json({
         success: true,
         data: movies,
@@ -67,7 +67,7 @@ const MovieController = {
           .json({ success: false, message: "Movie Id is required" });
       }
 
-      const movie = await MovieModel.findById(id);
+      const movie = await MovieRepository.findById(id);
 
       if (!movie) {
         return res
@@ -129,7 +129,7 @@ const MovieController = {
           .json({ success: false, message: "Title is required" });
       }
 
-      const [newMovie] = await MovieModel.create({
+      const newMovie = await MovieRepository.create({
         title,
         genre,
         description,
@@ -194,7 +194,10 @@ const MovieController = {
         release_date,
       };
 
-      const [updatedMovie] = await MovieModel.updateById({ id, movieData });
+      const updatedMovie = await MovieRepository.update({
+        id,
+        movieData,
+      });
 
       return res.status(200).json({
         success: true,
@@ -243,7 +246,7 @@ const MovieController = {
           .json({ success: false, message: "Movie Id is required" });
       }
 
-      const deletedMovie = await MovieModel.deleteById(id);
+      const deletedMovie = await MovieRepository.delete(id);
       if (deletedMovie) {
         return res.status(200).json({
           success: true,
