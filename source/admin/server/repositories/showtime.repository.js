@@ -16,6 +16,14 @@ class ShowtimeRepository extends GenericRepository {
 
     return !!existing; // Returns true if overlap exists
   }
+
+  // Get only future showtimes (start_time > now)
+  async getFutureShowtimes() {
+    const now = new Date();
+    return await this.db("showtimes")
+      .where("start_time", ">", now)
+      .orderBy("start_time", "asc");
+  }
 }
 
 module.exports = new ShowtimeRepository();
