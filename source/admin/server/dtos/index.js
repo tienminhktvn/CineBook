@@ -4,6 +4,7 @@ const hallDto = require("./hall.dto");
 const showtimeDto = require("./showtime.dto");
 const bookingDto = require("./booking.dto");
 const authDto = require("./auth.dto");
+const userDto = require("./user.dto");
 
 module.exports = {
   // Common
@@ -23,4 +24,7 @@ module.exports = {
 
   // Auth
   ...authDto,
+
+  // User
+  ...userDto,
 };

@@ -115,7 +115,7 @@ export const LoginPage: React.FC = () => {
 
         {/* Footer */}
         <p className="text-center text-slate-500 text-sm mt-8">
-          © 2024 CineBook. All rights reserved.
+          © 2025 CineBook. All rights reserved.
         </p>
       </div>
     </div>

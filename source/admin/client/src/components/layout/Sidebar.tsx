@@ -6,6 +6,7 @@ import {
   Building2,
   Clock,
   Ticket,
+  Users,
   LogOut,
   Menu,
   X,
@@ -17,17 +18,26 @@ interface SidebarProps {
   onClose: () => void;
 }
 
-const navItems = [
+interface NavItem {
+  to: string;
+  icon: React.ElementType;
+  label: string;
+  adminOnly?: boolean;
+}
+
+const navItems: NavItem[] = [
   { to: "/", icon: LayoutDashboard, label: "Dashboard" },
   { to: "/movies", icon: Film, label: "Movies" },
   { to: "/halls", icon: Building2, label: "Halls" },
   { to: "/showtimes", icon: Clock, label: "Showtimes" },
   { to: "/bookings", icon: Ticket, label: "Bookings" },
+  { to: "/users", icon: Users, label: "Users", adminOnly: true },
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
+  const isAdmin = user?.role === "admin";
 
   const handleLogout = async () => {
     await logout();
@@ -36,12 +46,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Backdrop for mobile */}
+      {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
       )}
 
       {/* Sidebar */}
@@ -50,12 +57,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           fixed top-0 left-0 z-50 h-full w-64 
           bg-linear-to-b from-slate-900 to-slate-800
           transform transition-transform duration-300 ease-in-out
-          lg:translate-x-0 lg:static
+          flex flex-col
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-slate-700">
+        <div className="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
               <Film className="w-6 h-6 text-white" />
@@ -64,44 +71,48 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           </div>
           <button
             onClick={onClose}
-            className="lg:hidden p-2 text-slate-400 hover:text-white"
+            className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="p-4 space-y-2">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              onClick={onClose}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                  isActive
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30"
-                    : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
-                }`
-              }
-            >
-              <item.icon className="w-5 h-5" />
-              <span className="font-medium">{item.label}</span>
-            </NavLink>
-          ))}
+        {/* Navigation - takes remaining space */}
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          {navItems
+            .filter((item) => !item.adminOnly || isAdmin)
+            .map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={onClose}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                    isActive
+                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30"
+                      : "text-slate-300 hover:bg-slate-700/50 hover:text-white"
+                  }`
+                }
+              >
+                <item.icon className="w-5 h-5" />
+                <span className="font-medium">{item.label}</span>
+              </NavLink>
+            ))}
         </nav>
 
-        {/* User section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700">
+        {/* User section - fixed at bottom */}
+        <div className="shrink-0 p-4 border-t border-slate-700 bg-slate-900/50">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-full bg-linear-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-semibold">
               {user?.username?.charAt(0).toUpperCase() || "A"}
             </div>
-            <div>
-              <p className="text-white font-medium">
+            <div className="min-w-0 flex-1">
+              <p className="text-white font-medium truncate">
                 {user?.username || "Admin"}
               </p>
-              <p className="text-slate-400 text-sm">{user?.email || ""}</p>
+              <p className="text-slate-400 text-sm truncate">
+                {user?.email || ""}
+              </p>
             </div>
           </div>
           <button
@@ -121,11 +132,11 @@ export const MobileHeader: React.FC<{ onMenuClick: () => void }> = ({
   onMenuClick,
 }) => {
   return (
-    <header className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-slate-900 border-b border-slate-700 px-4 py-3">
+    <header className="fixed top-0 left-0 right-0 z-30 bg-slate-900 border-b border-slate-700 px-4 py-3">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="p-2 text-slate-400 hover:text-white"
+          className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
         >
           <Menu className="w-6 h-6" />
         </button>

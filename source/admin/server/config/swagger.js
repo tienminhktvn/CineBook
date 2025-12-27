@@ -38,6 +38,9 @@ const {
   RegisterResponse,
   LogoutResponse,
   Role: RoleSchema,
+  // User Management
+  CreateUserInput,
+  UpdateUserInput,
 } = require("../dtos");
 
 const PORT = process.env.PORT || 3000;
@@ -80,6 +83,10 @@ const options = {
       {
         name: "Auth",
         description: "Authentication endpoints (login, register, logout)",
+      },
+      {
+        name: "Users",
+        description: "User management endpoints (Admin only)",
       },
     ],
     // ==================== Security ====================
@@ -147,6 +154,12 @@ const options = {
         RegisterInput,
         RegisterResponse,
         LogoutResponse,
+
+        // ==================== User Management Schemas ====================
+        CreateUserInput,
+        UpdateUserInput,
+        UserResponse: createItemResponse("#/components/schemas/User"),
+        UserListResponse: createListResponse("#/components/schemas/User"),
       },
 
       // ==================== Parameters ====================
@@ -190,6 +203,16 @@ const options = {
             type: "string",
             format: "uuid",
             example: "550e8400-e29b-41d4-a716-446655440000",
+          },
+        },
+        UserId: {
+          name: "id",
+          in: "path",
+          required: true,
+          description: "Unique identifier of the user",
+          schema: {
+            type: "integer",
+            example: 1,
           },
         },
       },

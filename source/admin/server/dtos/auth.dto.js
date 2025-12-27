@@ -4,7 +4,7 @@
 
 const { Role, UserStatus } = require("../models/enum");
 
-// ==================== Request Schemas ====================
+// Request Schemas
 
 const LoginInput = {
   type: "object",
@@ -61,7 +61,7 @@ const RegisterInput = {
   },
 };
 
-// ==================== Response Schemas ====================
+// Response Schemas
 
 const User = {
   type: "object",

@@ -82,11 +82,11 @@ const AuthController = {
         });
       }
 
-      // Check if user is admin (this is admin panel)
-      if (user.role !== Role.ADMIN) {
+      // Check if user is admin or staff
+      if (user.role !== Role.ADMIN && user.role !== Role.STAFF) {
         return res.status(403).json({
           success: false,
-          message: "Admin access required",
+          message: "Admin or Staff access required",
         });
       }
 

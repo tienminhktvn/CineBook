@@ -21,11 +21,14 @@ export const AdminLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900">
+      {/* Top header with hamburger menu */}
       <MobileHeader onMenuClick={() => setSidebarOpen(true)} />
+
+      {/* Slide-out sidebar */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      {/* Main content */}
-      <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
+      {/* Main content - full width with top padding for header */}
+      <main className="pt-16 min-h-screen">
         <div className="p-6">
           <Outlet />
         </div>

@@ -1,7 +1,3 @@
-/**
- * Booking DTOs - Data Transfer Objects for Booking endpoints
- */
-
 const { BookingStatus } = require("../models/enum");
 
 const Booking = {

@@ -34,6 +34,17 @@ export interface RegisterRequest {
   phone_number?: string;
 }
 
+// User management types
+export interface UserInput {
+  username: string;
+  password?: string;
+  email: string;
+  full_name?: string;
+  phone_number?: string;
+  role?: "customer" | "admin" | "staff";
+  status?: "active" | "blocked" | "pending";
+}
+
 // Movie types
 export interface Movie {
   id: number;

@@ -11,6 +11,7 @@ import {
   HallsPage,
   ShowtimesPage,
   BookingsPage,
+  UsersPage,
 } from "./pages";
 
 const queryClient = new QueryClient({
@@ -39,6 +40,7 @@ const App: React.FC = () => {
               <Route path="/halls" element={<HallsPage />} />
               <Route path="/showtimes" element={<ShowtimesPage />} />
               <Route path="/bookings" element={<BookingsPage />} />
+              <Route path="/users" element={<UsersPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

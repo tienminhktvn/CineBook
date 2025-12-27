@@ -81,7 +81,8 @@ exports.seed = async function (knex) {
           "A thief who steals corporate secrets through the use of dream-sharing technology...",
         duration_minutes: 148,
         release_date: "2010-07-16",
-        poster_url: "https://example.com/inception.jpg",
+        poster_url:
+          "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_QL75_UX190_CR0,0,190,281_.jpg",
       },
       {
         title: "The Dark Knight",
@@ -90,7 +91,8 @@ exports.seed = async function (knex) {
           "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham...",
         duration_minutes: 152,
         release_date: "2008-07-18",
-        poster_url: "https://example.com/batman.jpg",
+        poster_url:
+          "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_QL75_UX190_CR0,0,190,281_.jpg",
       },
     ])
     .returning("*");
