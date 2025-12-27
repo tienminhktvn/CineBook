@@ -9,29 +9,30 @@ interface StatsCardProps {
     value: number;
     isPositive: boolean;
   };
-  color?: "indigo" | "emerald" | "amber" | "rose";
+  color?: "yellow" | "green" | "blue" | "red";
 }
 
+// IMDb-inspired color scheme
 const colorClasses = {
-  indigo: {
-    bg: "from-indigo-500/10 to-purple-500/10",
-    icon: "from-indigo-500 to-purple-500",
-    text: "text-indigo-400",
+  yellow: {
+    bg: "bg-[#f5c518]/10",
+    icon: "bg-[#f5c518]",
+    iconText: "text-black",
   },
-  emerald: {
-    bg: "from-emerald-500/10 to-teal-500/10",
-    icon: "from-emerald-500 to-teal-500",
-    text: "text-emerald-400",
+  green: {
+    bg: "bg-[#3bb33b]/10",
+    icon: "bg-[#3bb33b]",
+    iconText: "text-white",
   },
-  amber: {
-    bg: "from-amber-500/10 to-orange-500/10",
-    icon: "from-amber-500 to-orange-500",
-    text: "text-amber-400",
+  blue: {
+    bg: "bg-[#5799ef]/10",
+    icon: "bg-[#5799ef]",
+    iconText: "text-white",
   },
-  rose: {
-    bg: "from-rose-500/10 to-pink-500/10",
-    icon: "from-rose-500 to-pink-500",
-    text: "text-rose-400",
+  red: {
+    bg: "bg-[#f54336]/10",
+    icon: "bg-[#f54336]",
+    iconText: "text-white",
   },
 };
 
@@ -40,7 +41,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   value,
   icon: Icon,
   trend,
-  color = "indigo",
+  color = "yellow",
 }) => {
   const colors = colorClasses[color];
 
@@ -48,36 +49,35 @@ export const StatsCard: React.FC<StatsCardProps> = ({
     <div
       className={`
         relative overflow-hidden
-        bg-linear-to-br ${colors.bg}
-        border border-slate-700/50
-        rounded-2xl p-6
+        ${colors.bg}
+        border border-[#333]
+        rounded-lg p-5
       `}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-medium text-slate-400">{label}</p>
+          <p className="text-sm font-medium text-[#777]">{label}</p>
           <p className="mt-2 text-3xl font-bold text-white">{value}</p>
           {trend && (
             <p
               className={`mt-2 text-sm flex items-center gap-1 ${
-                trend.isPositive ? "text-emerald-400" : "text-rose-400"
+                trend.isPositive ? "text-[#3bb33b]" : "text-[#f54336]"
               }`}
             >
               <span>{trend.isPositive ? "↑" : "↓"}</span>
               <span>{Math.abs(trend.value)}%</span>
-              <span className="text-slate-400">vs last month</span>
+              <span className="text-[#555]">vs last month</span>
             </p>
           )}
         </div>
         <div
           className={`
-            w-12 h-12 rounded-xl
-            bg-linear-to-br ${colors.icon}
+            w-12 h-12 rounded-lg
+            ${colors.icon}
             flex items-center justify-center
-            shadow-lg
           `}
         >
-          <Icon className="w-6 h-6 text-white" />
+          <Icon className={`w-6 h-6 ${colors.iconText}`} />
         </div>
       </div>
     </div>

@@ -5,10 +5,11 @@ interface CardProps {
   className?: string;
 }
 
+// IMDb-inspired card styling
 export const Card: React.FC<CardProps> = ({ children, className = "" }) => {
   return (
     <div
-      className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl ${className}`}
+      className={`bg-[#1c1c1c] border border-[#333] rounded-lg ${className}`}
     >
       {children}
     </div>
@@ -20,7 +21,7 @@ export const CardHeader: React.FC<CardProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`px-6 py-4 border-b border-slate-700/50 ${className}`}>
+    <div className={`px-6 py-4 border-b border-[#333] ${className}`}>
       {children}
     </div>
   );

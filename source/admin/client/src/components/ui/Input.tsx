@@ -5,6 +5,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
+// IMDb-inspired input styling
 export const Input: React.FC<InputProps> = ({
   label,
   error,
@@ -19,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-medium text-slate-300"
+          className="block text-sm font-medium text-[#aaa]"
         >
           {label}
         </label>
@@ -28,16 +29,16 @@ export const Input: React.FC<InputProps> = ({
         id={inputId}
         className={`
           w-full px-4 py-2.5
-          bg-slate-700/50 border border-slate-600
-          rounded-xl text-white placeholder-slate-400
-          focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+          bg-[#1f1f1f] border border-[#444]
+          rounded-lg text-white placeholder-[#666]
+          focus:outline-none focus:ring-2 focus:ring-[#f5c518] focus:border-transparent
           transition-all duration-200
-          ${error ? "border-red-500 focus:ring-red-500" : ""}
+          ${error ? "border-[#f54336] focus:ring-[#f54336]" : ""}
           ${className}
         `}
         {...props}
       />
-      {error && <p className="text-sm text-red-400">{error}</p>}
+      {error && <p className="text-sm text-[#f54336]">{error}</p>}
     </div>
   );
 };
@@ -63,7 +64,7 @@ export const Select: React.FC<SelectProps> = ({
       {label && (
         <label
           htmlFor={selectId}
-          className="block text-sm font-medium text-slate-300"
+          className="block text-sm font-medium text-[#aaa]"
         >
           {label}
         </label>
@@ -72,11 +73,11 @@ export const Select: React.FC<SelectProps> = ({
         id={selectId}
         className={`
           w-full px-4 py-2.5
-          bg-slate-700/50 border border-slate-600
-          rounded-xl text-white
-          focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+          bg-[#1f1f1f] border border-[#444]
+          rounded-lg text-white
+          focus:outline-none focus:ring-2 focus:ring-[#f5c518] focus:border-transparent
           transition-all duration-200
-          ${error ? "border-red-500 focus:ring-red-500" : ""}
+          ${error ? "border-[#f54336] focus:ring-[#f54336]" : ""}
           ${className}
         `}
         {...props}
@@ -87,7 +88,7 @@ export const Select: React.FC<SelectProps> = ({
           </option>
         ))}
       </select>
-      {error && <p className="text-sm text-red-400">{error}</p>}
+      {error && <p className="text-sm text-[#f54336]">{error}</p>}
     </div>
   );
 };
@@ -112,7 +113,7 @@ export const Textarea: React.FC<TextareaProps> = ({
       {label && (
         <label
           htmlFor={textareaId}
-          className="block text-sm font-medium text-slate-300"
+          className="block text-sm font-medium text-[#aaa]"
         >
           {label}
         </label>
@@ -121,16 +122,16 @@ export const Textarea: React.FC<TextareaProps> = ({
         id={textareaId}
         className={`
           w-full px-4 py-2.5
-          bg-slate-700/50 border border-slate-600
-          rounded-xl text-white placeholder-slate-400
-          focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent
+          bg-[#1f1f1f] border border-[#444]
+          rounded-lg text-white placeholder-[#666]
+          focus:outline-none focus:ring-2 focus:ring-[#f5c518] focus:border-transparent
           transition-all duration-200 resize-none
-          ${error ? "border-red-500 focus:ring-red-500" : ""}
+          ${error ? "border-[#f54336] focus:ring-[#f54336]" : ""}
           ${className}
         `}
         {...props}
       />
-      {error && <p className="text-sm text-red-400">{error}</p>}
+      {error && <p className="text-sm text-[#f54336]">{error}</p>}
     </div>
   );
 };

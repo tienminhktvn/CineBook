@@ -23,6 +23,7 @@ const sizes = {
   xl: "max-w-xl",
 };
 
+// IMDb-inspired modal styling
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
@@ -42,7 +43,7 @@ export const Modal: React.FC<ModalProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="fixed inset-0 bg-black/80" />
         </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -57,13 +58,13 @@ export const Modal: React.FC<ModalProps> = ({
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel
-                className={`w-full ${sizes[size]} transform overflow-hidden rounded-2xl bg-slate-800 border border-slate-700 p-6 shadow-xl transition-all`}
+                className={`w-full ${sizes[size]} transform overflow-hidden rounded-lg bg-[#1a1a1a] border border-[#333] p-6 shadow-xl transition-all`}
               >
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white">{title}</h3>
                   <button
                     onClick={onClose}
-                    className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors"
+                    className="p-2 text-[#777] hover:text-white hover:bg-[#333] rounded-lg transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>

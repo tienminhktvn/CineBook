@@ -7,14 +7,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
+// IMDb-inspired button variants
 const variants = {
   primary:
-    "bg-linear-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-indigo-500/25",
-  secondary:
-    "bg-slate-700 text-white hover:bg-slate-600 border border-slate-600",
+    "bg-[#f5c518] text-black font-semibold hover:bg-[#e6b800] active:bg-[#c9a30e]",
+  secondary: "bg-[#333] text-white hover:bg-[#444] border border-[#444]",
   danger:
-    "bg-linear-to-r from-red-600 to-rose-600 text-white hover:from-red-700 hover:to-rose-700 shadow-lg shadow-red-500/25",
-  ghost: "bg-transparent text-slate-300 hover:bg-slate-700/50 hover:text-white",
+    "bg-[#f54336] text-white font-semibold hover:bg-[#e53935] active:bg-[#c62828]",
+  ghost: "bg-transparent text-[#aaa] hover:bg-[#2a2a2a] hover:text-white",
 };
 
 const sizes = {
@@ -37,7 +37,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled || isLoading}
       className={`
         inline-flex items-center justify-center gap-2
-        font-medium rounded-xl
+        font-medium rounded-lg
         transition-all duration-200
         disabled:opacity-50 disabled:cursor-not-allowed
         ${variants[variant]}

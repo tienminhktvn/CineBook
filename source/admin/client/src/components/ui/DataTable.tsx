@@ -14,6 +14,7 @@ interface DataTableProps<T> {
   onRowClick?: (item: T) => void;
 }
 
+// IMDb-inspired data table
 export function DataTable<T extends { id: number | string }>({
   columns,
   data,
@@ -24,14 +25,14 @@ export function DataTable<T extends { id: number | string }>({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-[#f5c518] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (data.length === 0) {
     return (
-      <div className="text-center py-12 text-slate-400">
+      <div className="text-center py-12 text-[#777]">
         <p>{emptyMessage}</p>
       </div>
     );
@@ -41,31 +42,31 @@ export function DataTable<T extends { id: number | string }>({
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-slate-700">
+          <tr className="border-b border-[#333]">
             {columns.map((column) => (
               <th
                 key={String(column.key)}
-                className="px-4 py-3 text-left text-sm font-medium text-slate-400 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-semibold text-[#f5c518] uppercase tracking-wider"
               >
                 {column.header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-700/50">
+        <tbody className="divide-y divide-[#2a2a2a]">
           {data.map((item) => (
             <tr
               key={item.id}
               onClick={() => onRowClick?.(item)}
               className={`
                 transition-colors
-                ${onRowClick ? "cursor-pointer hover:bg-slate-700/30" : ""}
+                ${onRowClick ? "cursor-pointer hover:bg-[#2a2a2a]" : ""}
               `}
             >
               {columns.map((column) => (
                 <td
                   key={String(column.key)}
-                  className="px-4 py-4 text-sm text-slate-300"
+                  className="px-4 py-4 text-sm text-[#ccc]"
                 >
                   {column.render
                     ? column.render(item)

@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/* IMDb-inspired dark theme colors */
+:root {
+  /* Primary - IMDb Yellow/Gold */
+  --color-primary: #f5c518;
+  --color-primary-hover: #e6b800;
+  --color-primary-dark: #c9a30e;
+
+  /* Backgrounds */
+  --color-bg-primary: #121212;
+  --color-bg-secondary: #1a1a1a;
+  --color-bg-tertiary: #1f1f1f;
+  --color-bg-card: #1c1c1c;
+  --color-bg-hover: #2a2a2a;
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #aaaaaa;
+  --color-text-muted: #777777;
+
+  /* Borders */
+  --color-border: #333333;
+  --color-border-hover: #444444;
+
+  /* Status colors */
+  --color-success: #3bb33b;
+  --color-error: #f54336;
+  --color-warning: #f5c518;
+  --color-info: #5799ef;
+}
+
 /* Custom scrollbar for dark theme */
 ::-webkit-scrollbar {
   width: 8px;
@@ -7,16 +37,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--color-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #444444;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #555555;
 }
 
 /* Smooth scrolling */
@@ -24,16 +54,22 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Focus outline */
+/* Base styles */
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Focus outline - IMDb yellow */
 *:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* Selection color */
+/* Selection color - IMDb yellow */
 ::selection {
-  background-color: #6366f1;
-  color: white;
+  background-color: var(--color-primary);
+  color: #000000;
 }
 
 /* Custom animations */
@@ -48,6 +84,65 @@ html {
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* IMDb-style card hover effect */
+.imdb-card {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.imdb-card:hover {
+  border-color: var(--color-border-hover);
+  background-color: var(--color-bg-hover);
+}
+
+/* IMDb-style button */
+.imdb-button-primary {
+  background-color: var(--color-primary);
+  color: #000000;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.imdb-button-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* IMDb-style badge/tag */
+.imdb-badge {
+  background-color: var(--color-primary);
+  color: #000000;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
 }
