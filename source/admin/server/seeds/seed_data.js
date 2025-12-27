@@ -182,12 +182,23 @@ exports.seed = async function (knex) {
   // SNACKS
   const snacksData = await knex("snacks")
     .insert([
-      { name: "Popcorn (L)", unit_price: 50000.0, image_url: "popcorn.jpg" },
-      { name: "Coke (M)", unit_price: 25000.0, image_url: "coke.jpg" },
+      {
+        name: "Popcorn (L)",
+        unit_price: 50000.0,
+        image_url:
+          "https://media.istockphoto.com/id/497857462/photo/popcorn-in-bucket.jpg?s=612x612&w=0&k=20&c=16mUWDBsQt4EpO-k3C-OqLiDfuigkawrxS1C6Y0cQuM=",
+      },
+      {
+        name: "Coke (M)",
+        unit_price: 25000.0,
+        image_url:
+          "https://t4.ftcdn.net/jpg/02/83/22/53/360_F_283225343_1pXXdsL8ivth4UOjvygvfqGUKFCNoPvg.jpg",
+      },
       {
         name: "Combo 1 (1 Popcorn + 1 Coke)",
         unit_price: 70000.0,
-        image_url: "combo1.jpg",
+        image_url:
+          "https://media.istockphoto.com/id/497858028/photo/popcorn-in-box-with-cola.jpg?s=612x612&w=0&k=20&c=1y0eL4C-TrrRd_LF_me9KFrfllRSajBG3Jw4DeAGTGA=",
       },
     ])
     .returning("*");

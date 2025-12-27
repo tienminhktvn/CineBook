@@ -6,6 +6,7 @@ import {
   Building2,
   Clock,
   Ticket,
+  Coffee,
   Users,
   LogOut,
   Menu,
@@ -31,6 +32,7 @@ const navItems: NavItem[] = [
   { to: "/halls", icon: Building2, label: "Halls" },
   { to: "/showtimes", icon: Clock, label: "Showtimes" },
   { to: "/bookings", icon: Ticket, label: "Bookings" },
+  { to: "/snacks", icon: Coffee, label: "Snacks" },
   { to: "/users", icon: Users, label: "Users", adminOnly: true },
 ];
 
