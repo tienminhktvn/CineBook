@@ -1,6 +1,6 @@
-const BaseRepository = require("./base.repository");
+const GenericRepository = require("./generic.repository");
 
-class MovieRepository extends BaseRepository {
+class MovieRepository extends GenericRepository {
   constructor() {
     super("movies");
   }

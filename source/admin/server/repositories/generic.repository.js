@@ -1,6 +1,6 @@
 const db = require("../config/database");
 
-class BaseRepository {
+class GenericRepository {
   constructor(tableName) {
     this.tableName = tableName;
     this.db = db;
@@ -37,4 +37,4 @@ class BaseRepository {
   }
 }
 
-module.exports = BaseRepository;
+module.exports = GenericRepository;
