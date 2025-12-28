@@ -8,3 +8,5 @@ export const Colors = {
   error: '#FF3B30', // Màu đỏ báo lỗi
   white: '#FFFFFF',
 };
+
+
